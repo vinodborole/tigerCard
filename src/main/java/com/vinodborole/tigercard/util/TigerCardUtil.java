@@ -27,19 +27,19 @@ public class TigerCardUtil {
     //TODO - Need to correct this
     public static Map<Integer,List<Journey>> getJourneyByDay(List<Journey> journeys){
         return journeys.stream()
-                .collect(Collectors.groupingBy((Journey d) -> getDayOfWeek(d.getDate())));
+                .collect(Collectors.groupingBy((Journey d) -> getDayOfMonth(d.getDate())));
     }
     //TODO - Need to correct this
     public static Map<Integer,List<Journey>> getJourneyByWeek(List<Journey> journeys){
         return journeys.stream()
-                .collect(Collectors.groupingBy((Journey d) -> getWeekOfMonth(d.getDate())));
+                .collect(Collectors.groupingBy((Journey d) -> getWeekOfYear(d.getDate())));
     }
-    private static int getWeekOfMonth(Date date) {
+    private static int getWeekOfYear(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal.get(Calendar.WEEK_OF_YEAR);
     }
-    private static int getDayOfWeek(Date date) {
+    private static int getDayOfMonth(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return cal.get(Calendar.DAY_OF_MONTH);
