@@ -2,7 +2,7 @@ package com.vinodborole.tigercard;
 
 import java.util.Date;
 
-public class Journey {
+public class Journey implements Comparable<Journey> {
     private Date date;
     private int fromZone;
     private int toZone;
@@ -25,5 +25,10 @@ public class Journey {
     }
     public int getFare() {
         return fare;
+    }
+
+    @Override
+    public int compareTo(Journey o) {
+        return (this.getDate()).compareTo(o.getDate());
     }
 }
