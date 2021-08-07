@@ -1,24 +1,40 @@
 package com.vinodborole.tigercard;
 
-import junit.framework.AssertionFailedError;
+import com.vinodborole.tigercard.entity.Journey;
+import com.vinodborole.tigercard.util.FareUtil;
+import com.vinodborole.tigercard.util.TigerCardUtil;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.io.InputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 public class TigerCardAppTest {
 
     @Test
-    public void testDailyCap(){
+    public void totalApplicableFareForSingleDayJourney_test(){
         try {
             List<Journey> journeys = getSingleDayJourney();
-            int dailyCap = FareUtil.getDailyCapForJourneys(journeys);
-            Assert.assertEquals(120,dailyCap);
+            List<Integer> cap = FareUtil.getFareCapForJourneys(journeys);
+            Assert.assertEquals(Arrays.asList(120,600),cap);
+        }catch(Exception e){
+            Assert.fail("Should not have thrown any exception");
+        }
+    }
+
+    @Test
+    public void totalApplicableFareForSingleWeekJourney_test(){
+        try {
+            List<Journey> journeys = getSingleWeekJourney();
+            Assert.assertTrue(true);
+        }catch(Exception e){
+            Assert.fail("Should not have thrown any exception");
+        }
+    }
+
+    @Test
+    public void totalApplicableFareForMultipleWeekJourney_test(){
+        try {
+            List<Journey> journeys = getMultipleWeekJourney();
+            Assert.assertTrue(true);
         }catch(Exception e){
             Assert.fail("Should not have thrown any exception");
         }
@@ -34,7 +50,7 @@ public class TigerCardAppTest {
         List<Journey> journeys = TigerCardUtil.getJourney(inputStream);
         return journeys;
     }
-    private List<Journey> getWeekOverFlowJourney() throws Exception {
+    private List<Journey> getMultipleWeekJourney() throws Exception {
         InputStream inputStream = TigerCardAppTest.class.getResourceAsStream("/week-overflow.txt");
         List<Journey> journeys = TigerCardUtil.getJourney(inputStream);
         return journeys;

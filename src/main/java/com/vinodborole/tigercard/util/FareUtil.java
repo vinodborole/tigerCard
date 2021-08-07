@@ -1,15 +1,15 @@
-package com.vinodborole.tigercard;
+package com.vinodborole.tigercard.util;
+
+import com.vinodborole.tigercard.entity.Journey;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class FareUtil {
 
+    public static final int MAXIMUM_NUMBER_OF_JOURNEY_APPLICABLE_FOR_DAILY_PASS = 3;
     public static final int ZONE_1_1_PEAK = 30;
     public static final int ZONE_2_2_PEAK = 25;
     public static final int ZONE_1_2_1_PEAK = 35;
@@ -18,13 +18,9 @@ public class FareUtil {
     public static final int ZONE_2_2_OFF_PEAK = 20;
     public static final int ZONE_1_2_1_OFF_PEAK = 30;
 
-    public static final int DAILY_CAP_ZONE_1_1 = 100;
-    public static final int DAILY_CAP_ZONE_1_2_1 = 120;
-    public static final int DAILY_CAP_ZONE_2_2 = 80;
-
-    public static final int WEEKLY_CAP_ZONE_1_1 = 500;
-    public static final int WEEKLY_CAP_ZONE_1_2_1 = 600;
-    public static final int WEEKLY_CAP_ZONE_2_2 = 400;
+    public static final List<Integer> CAP_ZONE_1_1 = Arrays.asList(100,500);
+    public static final List<Integer> CAP_ZONE_1_2_1 = Arrays.asList(120,600);
+    public static final List<Integer> CAP_ZONE_2_2 = Arrays.asList(80,400);
 
     public static LocalTime PEAK_TIME_MON_SAT_START_1 = LocalTime.parse("07:00:00");
     public static LocalTime PEAK_TIME_MON_SAT_END_1 = LocalTime.parse("10:30:00");
@@ -59,7 +55,6 @@ public class FareUtil {
             }
         }
     }
-
     private static int getOffPeakHourFare(int fromZone, int toZone) {
         if (fromZone == 1 && toZone == 1) {
             return ZONE_1_1_OFF_PEAK;
@@ -70,7 +65,6 @@ public class FareUtil {
         }
         return 0;
     }
-
     private static int getPeakHourFare(int fromZone, int toZone) {
         if (fromZone == 1 && toZone == 1) {
             return ZONE_1_1_PEAK;
@@ -81,16 +75,16 @@ public class FareUtil {
         }
         return 0;
     }
-    //get the maximum fair journey and compare its zones
-    public static int getDailyCapForJourneys(List<Journey> journeys){
+
+    public static List<Integer> getFareCapForJourneys(List<Journey> journeys){
         Collections.sort(journeys,new JourneyFareComparator());
         if (journeys.get(0).getFromZone() == 1 && journeys.get(0).getToZone() == 2){
-            return DAILY_CAP_ZONE_1_2_1;
+            return CAP_ZONE_1_2_1;
         }else if (journeys.get(0).getFromZone() == 1 && journeys.get(0).getToZone() == 1){
-            return DAILY_CAP_ZONE_1_1;
+            return CAP_ZONE_1_1;
         }else if (journeys.get(0).getFromZone() == 2 && journeys.get(0).getToZone() == 2){
-            return DAILY_CAP_ZONE_2_2;
+            return CAP_ZONE_2_2;
         }
-        return 0;
+        return null;
     }
 }
