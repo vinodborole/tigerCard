@@ -21,7 +21,7 @@ Zones 1-1, Peak hours - 30, Off-peak hours 25
 
 Zones 1-2-1, Peak hours - 35, Off-peak hours 30
 
-Zones 2-2, Peak hours - 30, Off-peak hours 20
+Zones 2-2, Peak hours - 25, Off-peak hours 20
 
 
 #### Fare Capping					

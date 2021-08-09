@@ -1,7 +1,9 @@
 package com.vinodborole.tigercard.util;
 
 import com.vinodborole.tigercard.entity.Journey;
-import com.vinodborole.tigercard.entity.ZoneFare;
+import com.vinodborole.tigercard.entity.Fare;
+import com.vinodborole.tigercard.entity.Zones;
+import com.vinodborole.tigercard.exception.FareException;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -11,8 +13,8 @@ import java.util.stream.Collectors;
 import static com.vinodborole.tigercard.util.FareConstants.*;
 
 public class FareUtil {
-    public static Double calculateJourneyFare(Date date, int fromZone, int toZone){
-        ZoneFare zoneFare = new ZoneFare();
+    public static Double calculateJourneyFare(Date date, int fromZone, int toZone) throws FareException {
+        validateZones(fromZone,toZone);
         LocalTime time = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalTime();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -20,20 +22,27 @@ public class FareUtil {
         if (day >= Calendar.MONDAY && day <= Calendar.SATURDAY){
             if (time.isAfter(PEAK_TIME_MON_SAT_START_1) && time.isBefore(PEAK_TIME_MON_SAT_END_1) ||
                     time.isAfter(PEAK_TIME_MON_SAT_START_2) && time.isBefore(PEAK_TIME_MON_SAT_END_2)){
-                return zoneFare.getPeakHourFare(fromZone, toZone);
+                return Fare.getPeakHourFare(fromZone, toZone);
             }else{
-                return zoneFare.getOffHourFare(fromZone, toZone);
+                return Fare.getOffHourFare(fromZone, toZone);
             }
         }else{
             if (time.isAfter(PEAK_TIME_SAT_SUN_START_1) && time.isBefore(PEAK_TIME_SAT_SUN_END_1) ||
                     time.isAfter(PEAK_TIME_SAT_SUN_START_2) && time.isBefore(PEAK_TIME_SAT_SUN_END_2)){
-                return zoneFare.getPeakHourFare(fromZone, toZone);
+                return Fare.getPeakHourFare(fromZone, toZone);
             }else{
-                return zoneFare.getOffHourFare(fromZone, toZone);
+                return Fare.getOffHourFare(fromZone, toZone);
             }
         }
     }
-    public static double calculateTotalApplicableFare(List<Journey> journey){
+
+    private static void validateZones(int fromZone, int toZone) throws FareException {
+       if(!(Zones.isValidZone(fromZone) && Zones.isValidZone(toZone))){
+          throw new FareException("Invalid zones");
+       }
+    }
+
+    public static double calculateTotalApplicableFare(List<Journey> journey) throws FareException{
         double totalApplicableFare = 0.0;
         Map<Integer,List<Journey>> groupByWeek = journey.stream()
                 .collect(Collectors.groupingBy(Journey::getWeekOfMonth));
@@ -77,11 +86,11 @@ public class FareUtil {
         }
         return totalDaysFair;
     }
-    public static List<Double> getDailyAndWeeklyFareCapForJourneys(List<Journey> journeys){
+    public static List<Double> getDailyAndWeeklyFareCapForJourneys(List<Journey> journeys) throws FareException{
         if (journeys.size() >= MINIMUM_NUMBER_OF_JOURNEY_APPLICABLE_FOR_DAILY_PASS) {
             Journey journey = journeys.stream()
                     .max(Comparator.comparing(Journey::getFare)).get();
-            if (journey.getFromZone() == 1 && journey.getToZone() == 2) {
+            if (journey.getFromZone() == 1 && journey.getToZone() == 2 || journey.getFromZone() == 2 && journey.getToZone() == 1) {
                 return CAP_ZONE_1_2_1;
             } else if (journey.getFromZone() == 1 && journey.getToZone() == 1) {
                 return CAP_ZONE_1_1;

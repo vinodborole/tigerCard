@@ -1,5 +1,6 @@
 package com.vinodborole.tigercard.entity;
 
+import com.vinodborole.tigercard.exception.FareException;
 import com.vinodborole.tigercard.util.FareUtil;
 
 import java.util.Calendar;
@@ -19,8 +20,6 @@ public class Journey {
         this.date = date;
         this.fromZone=fromZone;
         this.toZone=toZone;
-
-        this.fare= FareUtil.calculateJourneyFare(date,fromZone,toZone);
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         weekOfMonth = cal.get(Calendar.WEEK_OF_MONTH);
@@ -34,8 +33,8 @@ public class Journey {
     public int getToZone() {
         return toZone;
     }
-    public double getFare() {
-        return fare;
+    public double getFare() throws FareException {
+        return FareUtil.calculateJourneyFare(date,fromZone,toZone);
     }
     public int getWeekOfMonth() {
         return weekOfMonth;
