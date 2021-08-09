@@ -1,40 +1,18 @@
 package com.vinodborole.tigercard.util;
 
 import com.vinodborole.tigercard.entity.Journey;
+import com.vinodborole.tigercard.entity.ZoneFare;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
+import static com.vinodborole.tigercard.util.FareConstants.*;
 
 public class FareUtil {
-
-    public static final int MAXIMUM_NUMBER_OF_JOURNEY_APPLICABLE_FOR_DAILY_PASS = 3;
-    public static final int ZONE_1_1_PEAK = 30;
-    public static final int ZONE_2_2_PEAK = 25;
-    public static final int ZONE_1_2_1_PEAK = 35;
-
-    public static final int ZONE_1_1_OFF_PEAK = 25;
-    public static final int ZONE_2_2_OFF_PEAK = 20;
-    public static final int ZONE_1_2_1_OFF_PEAK = 30;
-
-    public static final List<Integer> CAP_ZONE_1_1 = Arrays.asList(100,500);
-    public static final List<Integer> CAP_ZONE_1_2_1 = Arrays.asList(120,600);
-    public static final List<Integer> CAP_ZONE_2_2 = Arrays.asList(80,400);
-
-    public static LocalTime PEAK_TIME_MON_SAT_START_1 = LocalTime.parse("07:00:00");
-    public static LocalTime PEAK_TIME_MON_SAT_END_1 = LocalTime.parse("10:30:00");
-
-    public static LocalTime PEAK_TIME_MON_SAT_START_2 = LocalTime.parse("17:00:00");
-    public static LocalTime PEAK_TIME_MON_SAT_END_2 = LocalTime.parse("20:00:00");
-
-    public static LocalTime PEAK_TIME_SAT_SUN_START_1 = LocalTime.parse("09:00:00");
-    public static LocalTime PEAK_TIME_SAT_SUN_END_1 = LocalTime.parse("11:00:00");
-
-    public static LocalTime PEAK_TIME_SAT_SUN_START_2 = LocalTime.parse("18:00:00");
-    public static LocalTime PEAK_TIME_SAT_SUN_END_2 = LocalTime.parse("22:00:00");
-
-    public static int calculateFare(Date date, int fromZone, int toZone){
+    public static Double calculateJourneyFare(Date date, int fromZone, int toZone){
+        ZoneFare zoneFare = new ZoneFare();
         LocalTime time = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalTime();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -42,48 +20,74 @@ public class FareUtil {
         if (day >= Calendar.MONDAY && day <= Calendar.SATURDAY){
             if (time.isAfter(PEAK_TIME_MON_SAT_START_1) && time.isBefore(PEAK_TIME_MON_SAT_END_1) ||
                     time.isAfter(PEAK_TIME_MON_SAT_START_2) && time.isBefore(PEAK_TIME_MON_SAT_END_2)){
-                return getPeakHourFare(fromZone, toZone);
+                return zoneFare.getPeakHourFare(fromZone, toZone);
             }else{
-                return getOffPeakHourFare(fromZone, toZone);
+                return zoneFare.getOffHourFare(fromZone, toZone);
             }
         }else{
             if (time.isAfter(PEAK_TIME_SAT_SUN_START_1) && time.isBefore(PEAK_TIME_SAT_SUN_END_1) ||
                     time.isAfter(PEAK_TIME_SAT_SUN_START_2) && time.isBefore(PEAK_TIME_SAT_SUN_END_2)){
-                return getPeakHourFare(fromZone, toZone);
+                return zoneFare.getPeakHourFare(fromZone, toZone);
             }else{
-                return getOffPeakHourFare(fromZone, toZone);
+                return zoneFare.getOffHourFare(fromZone, toZone);
             }
         }
     }
-    private static int getOffPeakHourFare(int fromZone, int toZone) {
-        if (fromZone == 1 && toZone == 1) {
-            return ZONE_1_1_OFF_PEAK;
-        }else if (fromZone == 2 && toZone == 2){
-            return ZONE_2_2_OFF_PEAK;
-        }else if(fromZone == 1 && toZone == 2 || fromZone == 1 && toZone == 2){
-            return ZONE_1_2_1_OFF_PEAK;
-        }
-        return 0;
-    }
-    private static int getPeakHourFare(int fromZone, int toZone) {
-        if (fromZone == 1 && toZone == 1) {
-            return ZONE_1_1_PEAK;
-        }else if (fromZone == 2 && toZone == 2){
-            return ZONE_2_2_PEAK;
-        }else if(fromZone == 1 && toZone == 2 || fromZone == 1 && toZone == 2){
-            return ZONE_1_2_1_PEAK;
-        }
-        return 0;
-    }
+    public static double calculateTotalApplicableFare(List<Journey> journey){
+        double totalApplicableFare = 0.0;
+        Map<Integer,List<Journey>> groupByWeek = journey.stream()
+                .collect(Collectors.groupingBy(Journey::getWeekOfMonth));
+        Map<Integer,Double> weeklyFare = new HashMap<>();
 
-    public static List<Integer> getFareCapForJourneys(List<Journey> journeys){
-        Collections.sort(journeys,new JourneyFareComparator());
-        if (journeys.get(0).getFromZone() == 1 && journeys.get(0).getToZone() == 2){
-            return CAP_ZONE_1_2_1;
-        }else if (journeys.get(0).getFromZone() == 1 && journeys.get(0).getToZone() == 1){
-            return CAP_ZONE_1_1;
-        }else if (journeys.get(0).getFromZone() == 2 && journeys.get(0).getToZone() == 2){
-            return CAP_ZONE_2_2;
+        groupByWeek.forEach((week,wJourney)->{
+            Map<Integer,List<Journey>> groupByDay = wJourney.stream()
+                    .collect(Collectors.groupingBy(Journey::getDayOfWeek));
+            Map<Integer,Double> dayFare = new HashMap<>();
+            groupByDay.forEach((day,dJourney)->{
+                List<Double> fareCap = FareUtil.getDailyAndWeeklyFareCapForJourneys(dJourney);
+                if(fareCap!=null) {
+                    Double weekCap = fareCap.get(1);
+                    Double dayCap = fareCap.get(0);
+                    dayFare.put(day,dayCap); //reset total day fair to day cap
+                    if (dayFare.size()>1) { //apply weekly cap only when number of days are greater than one
+                        weeklyFare.put(week, weekCap); //reset week fair to week cap
+                    }else{
+                        weeklyFare.put(week, getTotalDaysFair(dayFare));
+                    }
+                }else{
+                    double totalDayFair = dJourney.stream()
+                            .mapToDouble(Journey::getFare).sum();
+                    dayFare.put(day,totalDayFair);
+                    weeklyFare.put(week, getTotalDaysFair(dayFare));
+                }
+            });
+        });
+        System.out.println("**** TOTAL APPLICABLE FAIR ***");
+        for (Map.Entry<Integer, Double> entry : weeklyFare.entrySet()) {
+            System.out.printf("Week : %d , Total Fare: %f",entry.getKey(),entry.getValue());
+            System.out.println();
+            totalApplicableFare += entry.getValue();
+        }
+        return totalApplicableFare;
+    }
+    private static double getTotalDaysFair(Map<Integer,Double> dayFair){
+        double totalDaysFair = 0.0;
+        for (Map.Entry<Integer, Double> entry : dayFair.entrySet()) {
+            totalDaysFair += entry.getValue();
+        }
+        return totalDaysFair;
+    }
+    public static List<Double> getDailyAndWeeklyFareCapForJourneys(List<Journey> journeys){
+        if (journeys.size() >= MINIMUM_NUMBER_OF_JOURNEY_APPLICABLE_FOR_DAILY_PASS) {
+            Journey journey = journeys.stream()
+                    .max(Comparator.comparing(Journey::getFare)).get();
+            if (journey.getFromZone() == 1 && journey.getToZone() == 2) {
+                return CAP_ZONE_1_2_1;
+            } else if (journey.getFromZone() == 1 && journey.getToZone() == 1) {
+                return CAP_ZONE_1_1;
+            } else if (journey.getFromZone() == 2 && journey.getToZone() == 2) {
+                return CAP_ZONE_2_2;
+            }
         }
         return null;
     }
