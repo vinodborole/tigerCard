@@ -6,6 +6,9 @@ import com.vinodborole.tigercard.util.FareUtil;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Journey is an entity class that stores a journey information along with the journey fare
+ */
 public class Journey {
     private Date date;
     private int fromZone;

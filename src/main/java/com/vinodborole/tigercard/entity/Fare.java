@@ -3,6 +3,9 @@ package com.vinodborole.tigercard.entity;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Fare class stores the fare information for peak and off peak hours
+ */
 public class Fare {
     static Map<String, Double> farePeakHours = new HashMap<>();
     static Map<String, Double> fareOffHours = new HashMap<>();

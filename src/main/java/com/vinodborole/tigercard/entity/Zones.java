@@ -1,5 +1,8 @@
 package com.vinodborole.tigercard.entity;
 
+/**
+ * Available Zones for Journey
+*/
 public enum Zones {
     ZONE_1(1),ZONE_2(2);
     private int zone;

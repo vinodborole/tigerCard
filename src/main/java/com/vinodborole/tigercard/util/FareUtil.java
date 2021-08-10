@@ -13,6 +13,18 @@ import java.util.stream.Collectors;
 import static com.vinodborole.tigercard.util.FareConstants.*;
 
 public class FareUtil {
+    /**
+     * Returns the Journey Fare for a specific date and from source zone to destination zone .
+     *
+     * This method calculates the Journey Fare by checking the zone and date if its a weekday or weekend and if the timings are
+     * within peak hour or off peak hours.
+     *
+     * @param  Date  Journey date and time
+     * @param  fromZone  Journey source zone
+     * @param  toZone  Journey destination zone
+     * @return              Cost of the journey
+     * @throws Throws a FareException in case the zones are invalid.
+     */
     public static Double calculateJourneyFare(Date date, int fromZone, int toZone) throws FareException {
         validateZones(fromZone,toZone);
         LocalTime time = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalTime();
@@ -42,6 +54,16 @@ public class FareUtil {
        }
     }
 
+    /**
+     * Returns the total applicable fare for the list of journeys.
+     *
+     * This method calculates total applicable fare for the list of journeys by grouping then by week, by day
+     * and applying weekly and daily cap on the journeys if the conditions meet.
+     *
+     * @param  journey  List of Journey
+     * @return              Total applicable fare for the list of journey
+     * @throws Throws a FareException in case the zones are invalid.
+     */
     public static double calculateTotalApplicableFare(List<Journey> journey) throws FareException{
         double totalApplicableFare = 0.0;
         Map<Integer,List<Journey>> groupByWeek = journey.stream()
@@ -86,6 +108,16 @@ public class FareUtil {
         }
         return totalDaysFair;
     }
+
+    /**
+     * Returns weekly and daily cap for the list of journeys.
+     *
+     * This method gets the maximum cost of a journey and based on the zones it returns the daily and weekly cap.
+     *
+     * @param  journey  List of Journey
+     * @return              Daily and weekly cap fare
+     * @throws Throws a FareException in case the zones are invalid.
+     */
     public static List<Double> getDailyAndWeeklyFareCapForJourneys(List<Journey> journeys) throws FareException{
         if (journeys.size() >= MINIMUM_NUMBER_OF_JOURNEY_APPLICABLE_FOR_DAILY_PASS) {
             Journey journey = journeys.stream()

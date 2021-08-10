@@ -7,7 +7,20 @@ import com.vinodborole.tigercard.util.FileUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-
+/**
+ * The transport officials from the city of Nepu want to design
+ * a payment system for public metro transport.
+ *
+ * They have come up with the idea of a prepaid card - TigerCard - which is
+ * an NFC enabled card that is to be tapped at entry and exit points of the metro stations.
+ * To make the fares easier to understand for the commuters,the city has been divided into zones.
+ * Zone 1 is the central area and Zone 2 forms a concentric ring around Zone 1.
+ * Each metro station has been assigned to a zone.
+ *
+ * In the future, more zones will be added as the metro expands.
+ * The problem statement is to design the fare calculation engine for TigerCard..
+ *
+ */
 public class TigerCardApp {
 
     public static void main(String []args){

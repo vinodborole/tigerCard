@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Journey</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.vinodborole.tigercard.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: Journey (com.vinodborole.tigercard.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Journey</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88.2%
+  </span>
+  <span class="absValue">
+    (15/17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.vinodborole.tigercard.entity;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.vinodborole.tigercard.exception.FareException;
+<i class="no-highlight">4</i>&nbsp;import com.vinodborole.tigercard.util.FareUtil;
+<i class="no-highlight">5</i>&nbsp;
+<i class="no-highlight">6</i>&nbsp;import java.util.Calendar;
+<i class="no-highlight">7</i>&nbsp;import java.util.Date;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;/**
+<i class="no-highlight">10</i>&nbsp; * Journey is an entity class that stores a journey information along with the journey fare
+<i class="no-highlight">11</i>&nbsp; */
+<i class="no-highlight">12</i>&nbsp;public class Journey {
+<i class="no-highlight">13</i>&nbsp;    private Date date;
+<i class="no-highlight">14</i>&nbsp;    private int fromZone;
+<i class="no-highlight">15</i>&nbsp;    private int toZone;
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;    private double fare;
+<i class="no-highlight">18</i>&nbsp;    private int weekOfMonth;
+<i class="no-highlight">19</i>&nbsp;    private int monthOfYear;
+<i class="no-highlight">20</i>&nbsp;    private int dayOfWeek;
+<i class="no-highlight">21</i>&nbsp;
+<b class="fc"><i class="no-highlight">22</i>&nbsp;    public Journey(Date date, int fromZone, int toZone) {</b>
+<b class="fc"><i class="no-highlight">23</i>&nbsp;        this.date = date;</b>
+<b class="fc"><i class="no-highlight">24</i>&nbsp;        this.fromZone=fromZone;</b>
+<b class="fc"><i class="no-highlight">25</i>&nbsp;        this.toZone=toZone;</b>
+<b class="fc"><i class="no-highlight">26</i>&nbsp;        Calendar cal = Calendar.getInstance();</b>
+<b class="fc"><i class="no-highlight">27</i>&nbsp;        cal.setTime(date);</b>
+<b class="fc"><i class="no-highlight">28</i>&nbsp;        weekOfMonth = cal.get(Calendar.WEEK_OF_MONTH);</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        monthOfYear = cal.get(Calendar.MONTH);</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;        dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;    }</b>
+<b class="nc"><i class="no-highlight">32</i>&nbsp;    public Date getDate(){return date;}</b>
+<i class="no-highlight">33</i>&nbsp;    public int getFromZone() {
+<b class="fc"><i class="no-highlight">34</i>&nbsp;        return fromZone;</b>
+<i class="no-highlight">35</i>&nbsp;    }
+<i class="no-highlight">36</i>&nbsp;    public int getToZone() {
+<b class="fc"><i class="no-highlight">37</i>&nbsp;        return toZone;</b>
+<i class="no-highlight">38</i>&nbsp;    }
+<i class="no-highlight">39</i>&nbsp;    public double getFare() throws FareException {
+<b class="fc"><i class="no-highlight">40</i>&nbsp;        return FareUtil.calculateJourneyFare(date,fromZone,toZone);</b>
+<i class="no-highlight">41</i>&nbsp;    }
+<i class="no-highlight">42</i>&nbsp;    public int getWeekOfMonth() {
+<b class="fc"><i class="no-highlight">43</i>&nbsp;        return weekOfMonth;</b>
+<i class="no-highlight">44</i>&nbsp;    }
+<i class="no-highlight">45</i>&nbsp;    public int getMonthOfYear() {
+<b class="nc"><i class="no-highlight">46</i>&nbsp;        return monthOfYear;</b>
+<i class="no-highlight">47</i>&nbsp;    }
+<i class="no-highlight">48</i>&nbsp;    public int getDayOfWeek() {
+<b class="fc"><i class="no-highlight">49</i>&nbsp;        return dayOfWeek;</b>
+<i class="no-highlight">50</i>&nbsp;    }
+<i class="no-highlight">51</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-08-10 11:43</div>
+</div>
+</body>
+</html>

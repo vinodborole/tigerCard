@@ -1,0 +1,151 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > TigerCardApp</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.vinodborole.tigercard</a>
+</div>
+
+<h1>Coverage Summary for Class: TigerCardApp (com.vinodborole.tigercard)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TigerCardApp</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.vinodborole.tigercard;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.vinodborole.tigercard.entity.Journey;
+<i class="no-highlight">4</i>&nbsp;import com.vinodborole.tigercard.util.FareUtil;
+<i class="no-highlight">5</i>&nbsp;import com.vinodborole.tigercard.util.FileUtil;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">8</i>&nbsp;import java.io.InputStream;
+<i class="no-highlight">9</i>&nbsp;import java.util.*;
+<i class="no-highlight">10</i>&nbsp;/**
+<i class="no-highlight">11</i>&nbsp; * The transport officials from the city of Nepu want to design
+<i class="no-highlight">12</i>&nbsp; * a payment system for public metro transport.
+<i class="no-highlight">13</i>&nbsp; *
+<i class="no-highlight">14</i>&nbsp; * They have come up with the idea of a prepaid card - TigerCard - which is
+<i class="no-highlight">15</i>&nbsp; * an NFC enabled card that is to be tapped at entry and exit points of the metro stations.
+<i class="no-highlight">16</i>&nbsp; * To make the fares easier to understand for the commuters,the city has been divided into zones.
+<i class="no-highlight">17</i>&nbsp; * Zone 1 is the central area and Zone 2 forms a concentric ring around Zone 1.
+<i class="no-highlight">18</i>&nbsp; * Each metro station has been assigned to a zone.
+<i class="no-highlight">19</i>&nbsp; *
+<i class="no-highlight">20</i>&nbsp; * In the future, more zones will be added as the metro expands.
+<i class="no-highlight">21</i>&nbsp; * The problem statement is to design the fare calculation engine for TigerCard..
+<i class="no-highlight">22</i>&nbsp; *
+<i class="no-highlight">23</i>&nbsp; */
+<b class="nc"><i class="no-highlight">24</i>&nbsp;public class TigerCardApp {</b>
+<i class="no-highlight">25</i>&nbsp;
+<i class="no-highlight">26</i>&nbsp;    public static void main(String []args){
+<b class="nc"><i class="no-highlight">27</i>&nbsp;        InputStream inputStream =null;</b>
+<i class="no-highlight">28</i>&nbsp;        try {
+<b class="nc"><i class="no-highlight">29</i>&nbsp;            inputStream = TigerCardApp.class.getResourceAsStream(&quot;/input.txt&quot;);</b>
+<b class="nc"><i class="no-highlight">30</i>&nbsp;            List&lt;Journey&gt; journeys = FileUtil.getJourney(inputStream);</b>
+<b class="nc"><i class="no-highlight">31</i>&nbsp;            System.out.println(&quot;Total Applicable Fair :&quot;+ FareUtil.calculateTotalApplicableFare(journeys));</b>
+<b class="nc"><i class="no-highlight">32</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i class="no-highlight">33</i>&nbsp;            e.printStackTrace();</b>
+<i class="no-highlight">34</i>&nbsp;        }finally {
+<b class="nc"><i class="no-highlight">35</i>&nbsp;            if (inputStream != null) {</b>
+<i class="no-highlight">36</i>&nbsp;                try {
+<b class="nc"><i class="no-highlight">37</i>&nbsp;                    inputStream.close();</b>
+<b class="nc"><i class="no-highlight">38</i>&nbsp;                } catch (IOException e) {</b>
+<b class="nc"><i class="no-highlight">39</i>&nbsp;                    e.printStackTrace();</b>
+<b class="nc"><i class="no-highlight">40</i>&nbsp;                }</b>
+<i class="no-highlight">41</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">42</i>&nbsp;        }</b>
+<i class="no-highlight">43</i>&nbsp;    }
+<i class="no-highlight">44</i>&nbsp;
+<i class="no-highlight">45</i>&nbsp;
+<i class="no-highlight">46</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-08-10 11:43</div>
+</div>
+</body>
+</html>

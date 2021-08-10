@@ -1,0 +1,128 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Zones</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.vinodborole.tigercard.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: Zones (com.vinodborole.tigercard.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Zones</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (10/11)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.vinodborole.tigercard.entity;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;/**
+<i class="no-highlight">4</i>&nbsp; * Available Zones for Journey
+<i class="no-highlight">5</i>&nbsp;*/
+<b class="fc"><i class="no-highlight">6</i>&nbsp;public enum Zones {</b>
+<b class="fc"><i class="no-highlight">7</i>&nbsp;    ZONE_1(1),ZONE_2(2);</b>
+<i class="no-highlight">8</i>&nbsp;    private int zone;
+<i class="no-highlight">9</i>&nbsp;    private Zones(int zone)
+<b class="fc"><i class="no-highlight">10</i>&nbsp;    {</b>
+<b class="fc"><i class="no-highlight">11</i>&nbsp;        this.zone = zone;</b>
+<b class="fc"><i class="no-highlight">12</i>&nbsp;    }</b>
+<i class="no-highlight">13</i>&nbsp;    public int getZone() {
+<b class="nc"><i class="no-highlight">14</i>&nbsp;        return zone;</b>
+<i class="no-highlight">15</i>&nbsp;    }
+<i class="no-highlight">16</i>&nbsp;    static public boolean isValidZone(int zone) {
+<b class="fc"><i class="no-highlight">17</i>&nbsp;        Zones[] zones  = Zones.values();</b>
+<b class="fc"><i class="no-highlight">18</i>&nbsp;        for (Zones z : zones)</b>
+<b class="fc"><i class="no-highlight">19</i>&nbsp;            if (z.zone==zone)</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;                return true;</b>
+<b class="fc"><i class="no-highlight">21</i>&nbsp;        return false;</b>
+<i class="no-highlight">22</i>&nbsp;    }
+<i class="no-highlight">23</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-08-10 11:43</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > FareConstants</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.vinodborole.tigercard.util</a>
+</div>
+
+<h1>Coverage Summary for Class: FareConstants (com.vinodborole.tigercard.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FareConstants</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.7%
+  </span>
+  <span class="absValue">
+    (11/12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.vinodborole.tigercard.util;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import java.time.LocalTime;
+<i class="no-highlight">4</i>&nbsp;import java.util.Arrays;
+<i class="no-highlight">5</i>&nbsp;import java.util.List;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;public class FareConstants {
+<b class="nc"><i class="no-highlight">8</i>&nbsp;    private FareConstants(){}</b>
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;    /* Minimum number of journeys required to apply day pass */
+<i class="no-highlight">11</i>&nbsp;    public static final int MINIMUM_NUMBER_OF_JOURNEY_APPLICABLE_FOR_DAILY_PASS = 3;
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;    /* Capping Limit for Day and Week */
+<b class="fc"><i class="no-highlight">14</i>&nbsp;    public static final List&lt;Double&gt; CAP_ZONE_1_1 = Arrays.asList(100.0,500.0);</b>
+<b class="fc"><i class="no-highlight">15</i>&nbsp;    public static final List&lt;Double&gt; CAP_ZONE_1_2_1 = Arrays.asList(120.0,600.0);</b>
+<b class="fc"><i class="no-highlight">16</i>&nbsp;    public static final List&lt;Double&gt; CAP_ZONE_2_2 = Arrays.asList(80.0,400.0);</b>
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;    /* Peak time for week days */
+<b class="fc"><i class="no-highlight">19</i>&nbsp;    public static final LocalTime PEAK_TIME_MON_SAT_START_1 = LocalTime.parse(&quot;07:00:00&quot;);</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;    public static final LocalTime PEAK_TIME_MON_SAT_END_1 = LocalTime.parse(&quot;10:30:00&quot;);</b>
+<b class="fc"><i class="no-highlight">21</i>&nbsp;    public static final LocalTime PEAK_TIME_MON_SAT_START_2 = LocalTime.parse(&quot;17:00:00&quot;);</b>
+<b class="fc"><i class="no-highlight">22</i>&nbsp;    public static final LocalTime PEAK_TIME_MON_SAT_END_2 = LocalTime.parse(&quot;20:00:00&quot;);</b>
+<i class="no-highlight">23</i>&nbsp;
+<i class="no-highlight">24</i>&nbsp;    /* Peak time for weekends */
+<b class="fc"><i class="no-highlight">25</i>&nbsp;    public static final LocalTime PEAK_TIME_SAT_SUN_START_1 = LocalTime.parse(&quot;09:00:00&quot;);</b>
+<b class="fc"><i class="no-highlight">26</i>&nbsp;    public static final LocalTime PEAK_TIME_SAT_SUN_END_1 = LocalTime.parse(&quot;11:00:00&quot;);</b>
+<b class="fc"><i class="no-highlight">27</i>&nbsp;    public static final LocalTime PEAK_TIME_SAT_SUN_START_2 = LocalTime.parse(&quot;18:00:00&quot;);</b>
+<b class="fc"><i class="no-highlight">28</i>&nbsp;    public static final LocalTime PEAK_TIME_SAT_SUN_END_2 = LocalTime.parse(&quot;22:00:00&quot;);</b>
+<i class="no-highlight">29</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-08-10 11:43</div>
+</div>
+</body>
+</html>

@@ -10,6 +10,18 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class FileUtil {
+    /**
+     * Returns list of Journey fetched from an input stream.
+     *
+     * This method reads the journey data from the input stream, it expects a fix format.
+     * Single journey entry at every line, with journey data separated with a single space.
+     * Journey data consist of Journey date and time in the format dd/MM/yyyy HH:mm:ss followed by Journey
+     * from zone and to Zone
+     *
+     * @param  inputStream  InputStream object
+     * @return              List of Journey
+     * @throws Throws a JourneyException in case format of data is incorrect.
+     */
     public static List<Journey> getJourney(InputStream inputStream) throws JourneyException {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
